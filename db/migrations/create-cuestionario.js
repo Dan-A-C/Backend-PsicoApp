@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('cuestionarios', {
+    await queryInterface.createTable('Cuestionarios', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,36 +12,34 @@ module.exports = {
       },
       pacienteId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: 'pacientes', // Nombre de la tabla a la que se relaciona
+          model: 'Pacientes',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      pregunta: {
+      descripcion: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      respuesta: {
-        type: Sequelize.INTEGER,
+      resultadoCuestionario: {
+        type: Sequelize.STRING,
         allowNull: true
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },
-
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('cuestionarios');
+    await queryInterface.dropTable('Cuestionarios');
   }
 };

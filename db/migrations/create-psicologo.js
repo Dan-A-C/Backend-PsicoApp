@@ -3,20 +3,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Pacientes', {
+    await queryInterface.createTable('Psicologos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      historial: {
+      nombre: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      diagnostico: {
+      especialidad: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: false
       },
       usuarioId: {
         type: Sequelize.INTEGER,
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Pacientes');
+    await queryInterface.dropTable('Psicologos');
   }
 };

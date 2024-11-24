@@ -4,20 +4,27 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Paciente extends Model {
     static associate(models) {
-      // Relación N:1 con Usuarios
+      // Relación con Usuario
       Paciente.belongsTo(models.Usuario, { foreignKey: 'usuarioId' });
-
-      // Relación 1:N con Citas
-      Paciente.hasMany(models.Cita, { foreignKey: 'pacienteId' });
-
-      // Relación 1:N con Cuestionarios
-      Paciente.hasMany(models.Cuestionario, { foreignKey: 'pacienteId' });
+      // Relación con Rutinas
+      Paciente.hasMany(models.Rutina, { foreignKey: 'pacienteId' });
+      // Relación con Sesiones
+      Paciente.hasMany(models.Sesion, { foreignKey: 'pacienteId' });
+      // Relación con Reportes
+      Paciente.hasMany(models.Reporte, { foreignKey: 'pacienteId' });
     }
   }
 
   Paciente.init(
     {
-      historial: DataTypes.TEXT,
+      historial: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      diagnostico: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,
